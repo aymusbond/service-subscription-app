@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import { Modal, Button, InputGroup, FormControl } from 'react-bootstrap';
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut} from "firebase/auth";
+  signInWithEmailAndPassword
+  } from "firebase/auth";
 import { auth } from '../../firebase';
 
 export const ModalComponent = (props) => {
@@ -41,20 +41,6 @@ export const ModalComponent = (props) => {
     }
   };
 
-  const logout = async () => {
-    await signOut(auth);
-  };
-
-  let button;
-  if(props.text === "Sign Up")
-      {
-        button = <Button variant="primary" onClick={register}> {props.text} </Button>
-      }
-  else
-      {
-        button = <Button variant="primary" onClick={login}> {props.text} </Button>
-      }
-
   return (
     <>
       <Button onClick={handleOpen} 
@@ -85,7 +71,8 @@ export const ModalComponent = (props) => {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}> Close </Button>
-          {button}
+          {props.text === "Sign Up" ? <Button variant="primary" onClick={register}> {props.text} </Button> : 
+          <Button variant="primary" onClick={login}> {props.text} </Button>}
         </Modal.Footer>
       </Modal>
     </>
